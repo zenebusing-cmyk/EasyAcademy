@@ -1,0 +1,52 @@
+
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login | EasyAcademy</title>
+    <link rel="stylesheet" href="{% static 'students/style.css' %}">
+</head>
+<body>
+    <main class="login-choice">
+        <div class="login-panel">
+            <h1>🎓 EasyAcademy</h1>
+            <p class="login-subtitle">School Management Platform</p>
+
+            <h2>Login as {{ role|title }}</h2>
+            <p>Enter your registered email or phone number and password.</p>
+
+            <form method="post">
+                {% csrf_token %}
+
+                <label for="username">Email or phone number</label>
+                <input
+                    type="text"
+                    id="username"
+                    name="username"
+                    placeholder="Enter email or phone number"
+                    required
+                >
+
+                <label for="password">Password</label>
+                <input
+                    type="password"
+                    id="password"
+                    name="password"
+                    placeholder="Enter your password"
+                    required
+                >
+
+                <button type="submit" class="btn-primary">
+                    Login
+                </button>
+            </form>
+
+            <a class="back-link" href="{% url 'login_choice' %}">
+                ← Choose another account type
+            </a>
+        </div>
+    </main>
+</body>
+</html>

@@ -1,0 +1,155 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EasyAcademy | School Management Platform</title>
+    <link rel="stylesheet" href="{% static 'students/style.css' %}">
+</head>
+
+<body>
+
+    <header>
+        <h2>🎓 EasyAcademy</h2>
+
+        <nav>
+            <a href="#home">Home</a>
+            <a href="#features">Features</a>
+            <a href="#about">About</a>
+            <a href="#contact">Contact</a>
+        </nav>
+
+        <a href="{% url 'login_choice' %}" class="Login-button">
+            Login</a>
+            
+    </header>
+
+    <main>
+        
+<section id="home" class="hero">
+    <div class="hero-content">
+        <p class="eyebrow">SMARTER SCHOOL MANAGEMENT</p>
+
+        <h1>
+            Everything your school needs,
+            <span>in one place.</span>
+        </h1>
+
+        <p class="hero-description">
+            Manage students, teachers, fees, attendance,
+            examinations and reports from one organized platform.
+        </p>
+
+        <div class="hero-actions">
+            <a href="/admin/" class="btn-primary">Get Started →</a>
+            <a href="#features" class="btn-secondary">Explore Features</a>
+        </div>
+
+        <p class="hero-note">
+            Simple school management. Better organization.
+        </p>
+    </div>
+
+    <div class="hero-preview">
+        <div class="preview-heading">
+            <div>
+                <span class="preview-label">EASYACADEMY OVERVIEW</span>
+                <h3>School Dashboard</h3>
+            </div>
+            <span class="live-indicator">● Overview</span>
+        </div>
+
+        <div class="preview-stats">
+            <div class="preview-card">
+                <span>👨‍🎓</span>
+                <p>Total Students</p>
+                <h2>Student records</h2>
+                <small>Manage admissions</small>
+            </div>
+
+            <div class="preview-card">
+                <span>💰</span>
+                <p>Fee Management</p>
+                <h2>Fee collection</h2>
+                <small>Payments and dues</small>
+            </div>
+
+            <div class="preview-card">
+                <span>📅</span>
+                <p>Attendance</p>
+                <h2>Daily records</h2>
+                <small>Track attendance</small>
+            </div>
+
+            <div class="preview-card">
+                <span>📊</span>
+                <p>Reports</p>
+                <h2>School insights</h2>
+                <small>Results and reports</small>
+            </div>
+        </div>
+
+        <div class="preview-footer">
+            <span class="preview-check">✓</span>
+            <p>Your school operations, organized in one place.</p>
+        </div>
+    </div>
+</section>
+
+
+        <section id="features">
+            <h2>Everything connected</h2>
+
+            <p>
+                Simplify everyday school operations with one platform.
+            </p>
+
+            <article>
+                <h3>Student Management</h3>
+                <p>Maintain student profiles and admission records.</p>
+            </article>
+
+            <article>
+                <h3>Teacher Management</h3>
+                <p>Organize teacher details and classroom responsibilities.</p>
+            </article>
+
+            <article>
+                <h3>Fee Management</h3>
+                <p>Track payments, outstanding dues and receipts.</p>
+            </article>
+
+            <article>
+                <h3>Attendance</h3>
+                <p>Manage attendance records in one place.</p>
+            </article>
+
+            <article>
+                <h3>Examinations & Results</h3>
+                <p>Organize marks, results and report cards.</p>
+            </article>
+
+            <article>
+                <h3>Reports & Analytics</h3>
+                <p>Understand school operations with useful reports.</p>
+            </article>
+        </section>
+
+        <section id="about">
+            <h2>Built for better school management</h2>
+            <p>
+                EasyAcademy aims to help schools organize their
+                administrative and academic work efficiently.
+            </p>
+        </section>
+
+        <footer id="contact">
+            <p>EasyAcademy — School Management Platform</p>
+            <p>Contact information will be added here later.</p>
+        </footer>
+    </main>
+
+</body>
+
+</html>

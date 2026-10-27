@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+    <title>Fee Reminders</title>
+
+    <style>
+
+        body {
+            font-family: Arial, sans-serif;
+            background: #f4f6f8;
+            margin: 0;
+            padding: 20px;
+        }
+
+        .page {
+            max-width: 1100px;
+            margin: auto;
+        }
+
+        h1 {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .print-button {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        button {
+            padding: 12px 25px;
+            background: #333;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+
+        .reminder-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 12px;
+        }
+
+        .reminder {
+            background: white;
+            border: 1px solid #333;
+            padding: 12px;
+            min-height: 190px;
+            box-sizing: border-box;
+        }
+
+        .school-name {
+            text-align: center;
+            font-weight: bold;
+            font-size: 16px;
+        }
+
+        .title {
+            text-align: center;
+            font-weight: bold;
+            margin: 5px 0 10px;
+            border-bottom: 1px solid #333;
+            padding-bottom: 5px;
+        }
+
+        .row {
+            display: flex;
+            justify-content: space-between;
+            padding: 3px 0;
+            font-size: 13px;
+        }
+
+        .due {
+            font-weight: bold;
+            font-size: 15px;
+            margin-top: 5px;
+            border-top: 1px solid #ddd;
+            padding-top: 5px;
+        }
+
+        .message {
+            margin-top: 8px;
+            font-size: 11px;
+        }
+
+        @media print {
+
+            body {
+                background: white;
+                padding: 0;
+            }
+
+            .page {
+                width: 100%;
+            }
+
+            h1,
+            .print-button {
+                display: none;
+            }
+
+            .reminder-grid {
+                grid-template-columns: repeat(3, 1fr);
+                gap: 8px;
+            }
+
+            .reminder {
+                break-inside: avoid;
+                min-height: 190px;
+            }
+
+            @page {
+                size: A4;
+                margin: 10mm;
+            }
+
+        }
+        .whatsapp-button {
+    display: block;
+    margin-top: 10px;
+    padding: 8px;
+    text-align: center;
+    background: #25D366;
+    color: white;
+    text-decoration: none;
+    border-radius: 5px;
+    font-weight: bold;
+    font-size: 12px;
+}
+
+    </style>
+
+</head>
+
+<body>
+
+<div class="page">
+
+    <h1>Fee Reminder Generator</h1>
+
+    <div class="print-button">
+
+        <button onclick="window.print()">
+            Print Fee Reminders
+        </button>
+
+    </div>
+
+    <div class="reminder-grid">
+
+        {% for item in students %}
+
+        <div class="reminder">
+
+            <div class="school-name">
+                ABC PUBLIC SCHOOL
+            </div>
+
+            <div class="title">
+                FEE REMINDER
+            </div>
+
+            <div class="row">
+                <span>Student:</span>
+                <strong>{{ item.student.name }}</strong>
+            </div>
+
+            <div class="row">
+                <span>Father:</span>
+                <strong>{{ item.student.father_name }}</strong>
+            </div>
+
+            <div class="row">
+                <span>Class:</span>
+                <strong>{{ item.student.student_class }}</strong>
+            </div>
+
+            <div class="row">
+                <span>Admission No:</span>
+                <strong>{{ item.student.admission_number }}</strong>
+            </div>
+
+            <div class="row">
+                <span>Total Fee:</span>
+                <strong>₹{{ item.student.total_fee }}</strong>
+            </div>
+
+            <div class="row">
+                <span>Paid:</span>
+                <strong>₹{{ item.total_paid }}</strong>
+            </div>
+
+            <div class="row due">
+                <span>Due:</span>
+                <strong>₹{{ item.due_fee }}</strong>
+            </div>
+
+            <div class="message">
+                Kindly deposit the pending fee at the earliest.
+            </div>
+            <a
+    class="whatsapp-button"
+    href="https://wa.me/91{{ item.student.mobile }}?text=Dear%20Parent,%20this%20is%20a%20fee%20reminder%20for%20{{ item.student.name }}.%20Total%20Fee:%20₹{{ item.student.total_fee }}.%20Paid:%20₹{{ item.total_paid }}.%20Due:%20₹{{ item.due_fee }}.%20Kindly%20deposit%20the%20pending%20fee%20at%20the%20earliest.%20Thank%20you."
+    target="_blank"
+>
+    Share on WhatsApp
+</a>
+
+        </div>
+
+        {% empty %}
+
+        <p>No students have pending fees.</p>
+
+        {% endfor %}
+
+    </div>
+
+</div>
+
+</body>
+
+</html>

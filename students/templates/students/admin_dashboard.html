@@ -1,0 +1,216 @@
+
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard | EasyAcademy</title>
+    <link rel="stylesheet" href="{% static 'students/style.css' %}">
+</head>
+<body>
+
+<div class="admin-layout">
+
+    <aside class="admin-sidebar">
+        <div class="admin-brand">
+            <span class="brand-icon">E</span>
+            <div>
+                <h2>EasyAcademy</h2>
+                <p>School Management</p>
+            </div>
+        </div>
+
+        <p class="sidebar-heading">MAIN MENU</p>
+        
+<nav class="admin-nav">
+
+    <a href="{% url 'admin_dashboard' %}" class="nav-item active">
+        <span>▦</span> Overview
+    </a>
+
+   <a href="{% url 'admin_student_list' %}" class="nav-item">
+    <span>♙</span> Students </a>
+
+    <a href="#" class="nav-item">
+        <span>♧</span> Faculty / Teachers
+    </a>
+
+    <div class="finance-menu">
+    <a href="#" class="nav-item finance-toggle"
+       onclick="this.parentElement.classList.toggle('expanded'); return false;">
+        <span>₹</span> Fee & Finance
+        <span class="finance-arrow">⌄</span>
+    </a>
+
+    <div class="finance-submenu">
+        <a href="#">Set tuition fee</a>
+        <a href="#">Set Transport fee</a>
+        <a href="#">Annual fee</a>
+        <a href="#">Exam fee</a>
+        <a href="#">Teacher salary</a>
+        <a href="#">Driver salary</a>
+        <a href="#">Fee ledger</a>
+        <a href="#">Fee head</a>
+        <a href="{% url 'fee_reminders' %}">Fee reminder</a>
+        <a href="#">Fee receipt</a>
+        <a href="#">Finance</a>
+    </div>
+</div>
+
+    <a href="#" class="nav-item">
+        <span>▣</span> Transport Management
+    </a>
+
+    <a href="#" class="nav-item">
+        <span>▦</span> Attendance
+    </a>
+
+    <a href="#" class="nav-item">
+        <span>▤</span> Results & Report Cards
+    </a>
+
+    <a href="#" class="nav-item">
+        <span>▣</span> Zoom Meetings
+    </a>
+
+    <a href="#" class="nav-item">
+        <span>▧</span> Study Materials
+    </a>
+
+    <a href="#" class="nav-item">
+        <span>☑</span> Test Papers
+    </a>
+
+    <a href="#" class="nav-item">
+        <span>☷</span> Homework
+    </a>
+
+    <a href="#" class="nav-item">
+        <span>↗</span> Student Performance
+    </a>
+
+    <a href="#" class="nav-item">
+        <span>▥</span> Reports & Analytics
+    </a>
+
+    <a href="#" class="nav-item">
+        <span>⚙</span> Settings
+    </a>
+
+</nav>
+
+
+        
+
+        <div class="sidebar-footer">
+            <p>EasyAcademy</p>
+            <span>School Administration</span>
+        </div>
+    </aside>
+
+    <main class="admin-main">
+
+        <header class="admin-topbar">
+            <div class="dashboard-search">
+                <span>⌕</span>
+                <input type="search"
+                       placeholder="Search students, fees, classes...">
+            </div>
+
+            <div class="topbar-actions">
+                <button type="button" class="notification-button"
+                        aria-label="Notifications">♧</button>
+                <div class="admin-account">
+                    <div class="account-avatar">A</div>
+                    <div>
+                        <strong>Administrator</strong>
+                        <span>School Admin</span>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <section class="dashboard-content">
+
+            <div class="dashboard-heading">
+                <div>
+                    <p class="dashboard-eyebrow">SCHOOL OVERVIEW</p>
+                    <h1>Admin Dashboard</h1>
+                    <p>Welcome back! Here's what's happening at your school.</p>
+                </div>
+                <span class="school-code">School Code: sch001</span>
+            </div>
+
+            <div class="dashboard-stats">
+
+                <article class="stat-card students-card">
+                    <div class="stat-icon">♙</div>
+                    <p>Total Students</p>
+                    <h2>{{total_students }}</h2>
+                    <span>Registered students</span>
+                </article>
+
+                <article class="stat-card collection-card">
+                    <div class="stat-icon">₹</div>
+                    <p>Fees Collected</p>
+                    <h2>₹ {{total_fees_collected|floatformat:2 }}</h2>
+                    <span>Recorded payments</span>
+                </article>
+
+                <article class="stat-card pending-card">
+                    <div class="stat-icon">!</div>
+                    <p>Total Outstanding</p>
+                    <h2>₹ --</h2>
+                    <span>Unpaid fee balance</span>
+                </article>
+
+                <article class="stat-card faculty-card">
+                    <div class="stat-icon">♧</div>
+                    <p>Faculty Members</p>
+                    <h2>--</h2>
+                    <span>Registered faculty</span>
+                </article>
+
+            </div>
+
+            <section class="dashboard-panel due-panel">
+                <div class="panel-heading">
+                    <div>
+                        <h2>High-Due Students</h2>
+                        <p>Students with outstanding fees of ₹2,000 or more</p>
+                    </div>
+                    <span class="due-alert-label">Fee Alerts</span>
+                </div>
+
+                <div class="empty-state">
+                    <div class="empty-state-icon">₹</div>
+                    <h3>Fee information will appear here</h3>
+                    <p>
+                        We'll connect this section to your database
+                        and add direct WhatsApp reminders next.
+                    </p>
+                </div>
+            </section>
+
+            <section class="dashboard-panel">
+                <div class="panel-heading">
+                    <div>
+                        <h2>Fee Collection Overview</h2>
+                        <p>Track your school's fee collection trends</p>
+                    </div>
+                </div>
+
+                <div class="empty-state chart-placeholder">
+                    <div class="empty-state-icon">▥</div>
+                    <h3>Monthly collection chart</h3>
+                    <p>We'll connect the chart to actual payment records.</p>
+                </div>
+            </section>
+
+        </section>
+    </main>
+</div>
+
+</body>
+</html>

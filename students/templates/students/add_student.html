@@ -1,0 +1,524 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add Student | EasyAcademy</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: #f4f5fa;
+            color: #172554;
+        }
+
+        .topbar {
+            position: sticky;
+            top: 0;
+            z-index: 10;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 17px 5%;
+            background: white;
+            border-bottom: 1px solid #e5e7eb;
+        }
+
+        .brand {
+            color: #087b50;
+            font-size: 24px;
+            font-weight: 800;
+        }
+
+        .topbar a {
+            color: #475569;
+            text-decoration: none;
+        }
+
+        .page {
+            max-width: 1250px;
+            margin: 30px auto;
+            padding: 0 20px;
+        }
+
+        .page-heading {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 16px;
+            margin-bottom: 22px;
+        }
+
+        .page-heading h1 {
+            margin: 0 0 8px;
+            font-size: 28px;
+        }
+
+        .page-heading p {
+            margin: 0;
+            color: #64748b;
+        }
+
+        .back-link {
+            padding: 11px 16px;
+            border-radius: 8px;
+            background: white;
+            text-decoration: none;
+            color: #334155;
+            border: 1px solid #e2e8f0;
+        }
+
+        .form-layout {
+            display: grid;
+            grid-template-columns: 230px minmax(0, 1fr);
+            gap: 22px;
+            align-items: start;
+        }
+
+        .section-nav,
+        .form-card {
+            background: white;
+            border: 1px solid #e7eaf0;
+            border-radius: 14px;
+            box-shadow: 0 4px 18px rgba(15, 23, 42, 0.04);
+        }
+
+        .section-nav {
+            padding: 18px 12px;
+            position: sticky;
+            top: 85px;
+        }
+
+        .section-nav h3 {
+            margin: 4px 10px 14px;
+            font-size: 13px;
+            color: #94a3b8;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .section-link {
+            display: block;
+            width: 100%;
+            padding: 12px 10px;
+            margin-bottom: 5px;
+            border: 0;
+            border-radius: 8px;
+            text-align: left;
+            background: transparent;
+            color: #475569;
+            cursor: pointer;
+            font-size: 14px;
+        }
+
+        .section-link:hover,
+        .section-link.active {
+            background: #eaf7f0;
+            color: #087b50;
+            font-weight: 700;
+        }
+
+        .form-card {
+            overflow: hidden;
+        }
+
+        .form-header {
+            padding: 24px 28px;
+            border-bottom: 1px solid #edf0f5;
+        }
+
+        .form-header h2 {
+            margin: 0 0 8px;
+            font-size: 21px;
+        }
+
+        .form-header p {
+            margin: 0;
+            color: #64748b;
+            font-size: 14px;
+        }
+
+        .form-content {
+            padding: 26px 28px;
+        }
+
+        .form-section {
+            padding-bottom: 28px;
+            margin-bottom: 28px;
+            border-bottom: 1px solid #edf0f5;
+            scroll-margin-top: 95px;
+        }
+
+        .form-section:last-of-type {
+            border-bottom: 0;
+            margin-bottom: 0;
+        }
+
+        .form-section h3 {
+            margin: 0 0 7px;
+            font-size: 17px;
+        }
+
+        .section-description {
+            margin: 0 0 22px;
+            color: #94a3b8;
+            font-size: 13px;
+        }
+
+        .fields {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 20px 18px;
+        }
+
+        .field {
+            min-width: 0;
+        }
+
+        .field label {
+            display: block;
+            margin-bottom: 8px;
+            color: #334155;
+            font-size: 14px;
+            font-weight: 600;
+        }
+
+        .field input,
+        .field select,
+        .field textarea {
+            width: 100%;
+            min-height: 44px;
+            padding: 11px 12px;
+            border: 1px solid #d8deea;
+            border-radius: 8px;
+            background: white;
+            color: #172554;
+            font: inherit;
+            font-size: 14px;
+            transition: border-color .2s, box-shadow .2s;
+        }
+
+        .field textarea {
+            min-height: 100px;
+            resize: vertical;
+        }
+
+        .field input:focus,
+        .field select:focus,
+        .field textarea:focus {
+            outline: none;
+            border-color: #2563eb;
+            box-shadow: 0 0 0 3px rgba(37, 99, 235, .10);
+        }
+
+        .field input[type="checkbox"] {
+            width: 18px;
+            min-height: 18px;
+        }
+
+        .field-full {
+            grid-column: 1 / -1;
+        }
+
+        .errorlist {
+            color: #dc2626;
+            font-size: 13px;
+            padding-left: 18px;
+        }
+
+        .form-actions {
+            display: flex;
+            justify-content: flex-end;
+            gap: 12px;
+            padding: 20px 28px;
+            border-top: 1px solid #edf0f5;
+            background: #fafbff;
+        }
+
+        .btn {
+            padding: 12px 20px;
+            border: 0;
+            border-radius: 8px;
+            font-weight: 700;
+            font-size: 14px;
+            cursor: pointer;
+        }
+
+        .btn-secondary {
+            color: #475569;
+            background: white;
+            border: 1px solid #d8deea;
+        }
+
+        .btn-primary {
+            color: white;
+            background: #0645e5;
+        }
+
+        .btn-primary:hover {
+            background: #0739bc;
+        }
+
+        .form-errors {
+            margin-bottom: 22px;
+            padding: 14px;
+            border-radius: 8px;
+            background: #fef2f2;
+            color: #b91c1c;
+        }
+
+        @media (max-width: 850px) {
+            .form-layout {
+                grid-template-columns: 1fr;
+            }
+
+            .section-nav {
+                position: static;
+                display: flex;
+                flex-wrap: wrap;
+                gap: 5px;
+            }
+
+            .section-nav h3 {
+                width: 100%;
+            }
+
+            .section-link {
+                width: auto;
+                margin: 0;
+            }
+        }
+
+        @media (max-width: 560px) {
+            .page {
+                margin-top: 20px;
+                padding: 0 12px;
+            }
+
+            .page-heading {
+                align-items: flex-start;
+                flex-direction: column;
+            }
+
+            .fields {
+                grid-template-columns: 1fr;
+            }
+
+            .field-full {
+                grid-column: auto;
+            }
+
+            .form-content,
+            .form-header {
+                padding: 20px 16px;
+            }
+
+            .form-actions {
+                padding: 16px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+<header class="topbar">
+    <div class="brand">🎓 EasyAcademy</div>
+    <a href="{% url 'admin_dashboard' %}">← Back to Dashboard</a>
+</header>
+
+<main class="page">
+
+    <div class="page-heading">
+        <div>
+            <h1>Add New Student</h1>
+            {% if messages %}
+    {% for message in messages %}
+        <div class="success-message">
+            {{ message }}
+        </div>
+    {% endfor %}
+{% endif %}
+            <p>Register a student and enter their admission information.</p>
+        </div>
+
+        <a class="back-link" href="{% url 'student_list' %}">
+            Student Records
+        </a>
+    </div>
+
+    <div class="form-layout">
+
+        <aside class="section-nav">
+            <h3>Admission Form</h3>
+            <button type="button" class="section-link active" data-target="student-details">
+                01 &nbsp; Student Details
+            </button>
+            <button type="button" class="section-link" data-target="admission-details">
+                02 &nbsp; Admission
+            </button>
+            <button type="button" class="section-link" data-target="fee-details">
+                03 &nbsp; Fees & Transport
+            </button>
+            <button type="button" class="section-link" data-target="address-details">
+                04 &nbsp; Address
+            </button>
+        </aside>
+
+        <div class="form-card">
+
+            <div class="form-header">
+                <h2>Student Registration</h2>
+                <p>Fields and choices below come from your existing Django StudentForm.</p>
+            </div>
+
+            <form method="POST">
+                {% csrf_token %}
+
+                <div class="form-content">
+
+                    {% if form.errors %}
+                        <div class="form-errors">
+                            <strong>Please correct the following errors:</strong>
+                            {{ form.errors }}
+                        </div>
+                    {% endif %}
+
+                    <section class="form-section" id="student-details">
+                        <h3>Student Details</h3>
+                        <p class="section-description">Basic information about the student and their family.</p>
+
+                        <div class="fields">
+                            {% for field in form %}
+                                {% if field.name == "admission_number" or field.name == "name" or field.name == "father_name" or field.name == "mother_name" or field.name == "mobile" %}
+                                    <div class="field">
+                                        <label for="{{ field.id_for_label }}">
+                                            {{ field.label }}{% if field.field.required %} *{% endif %}
+                                        </label>
+                                        {{ field }}
+                                        {{ field.errors }}
+                                    </div>
+                                {% endif %}
+                            {% endfor %}
+                        </div>
+                    </section>
+
+                    <section class="form-section" id="admission-details">
+                        <h3>Admission Details</h3>
+                        <p class="section-description">Assign the student to a class and section.</p>
+
+                        <div class="fields">
+                            {% for field in form %}
+                                {% if field.name == "admission_date" or field.name == "student_class" or field.name == "section" or field.name == "roll_number" %}
+                                    <div class="field">
+                                        <label for="{{ field.id_for_label }}">
+                                            {{ field.label }}{% if field.field.required %} *{% endif %}
+                                        </label>
+                                        {{ field }}
+                                        {{ field.errors }}
+                                    </div>
+                                {% endif %}
+                            {% endfor %}
+                        </div>
+                    </section>
+
+                    <section class="form-section" id="fee-details">
+                        <h3>Fees & Transport</h3>
+                        <p class="section-description">Choose the tuition fee and whether the student uses school transport.</p>
+
+                        <div class="fields">
+                            {% for field in form %}
+                               {% if field.name == "class_fee" or field.name == "transport" or field.name == "transport_area" or field.name == "payment_frequency" %}
+                                    <div class="field">
+                                        <label for="{{ field.id_for_label }}">
+                                            {{ field.label }}{% if field.field.required %} *{% endif %}
+                                        </label>
+                                        {{ field }}
+                                        {{ field.errors }}
+                                    </div>
+                                {% endif %}
+                            {% endfor %}
+                        </div>
+                    </section>
+
+                    <section class="form-section" id="address-details">
+                        <h3>Address</h3>
+                        <p class="section-description">Enter the student's current address.</p>
+
+                        <div class="fields">
+                            {% for field in form %}
+                                {% if field.name == "address" %}
+                                    <div class="field field-full">
+                                        <label for="{{ field.id_for_label }}">
+                                            {{ field.label }}{% if field.field.required %} *{% endif %}
+                                        </label>
+                                        {{ field }}
+                                        {{ field.errors }}
+                                    </div>
+                                {% endif %}
+                            {% endfor %}
+                        </div>
+                    </section>
+
+                </div>
+
+                <div class="form-actions">
+                    <a class="btn btn-secondary" href="{% url 'student_list' %}" style="text-decoration:none;">
+                        Cancel
+                    </a>
+                    <button type="submit" class="btn btn-primary">
+                        Save Student
+                    </button>
+                </div>
+
+            </form>
+        </div>
+    </div>
+</main>
+
+<script>
+    const sectionButtons = document.querySelectorAll(".section-link");
+
+    sectionButtons.forEach((button) => {
+        button.addEventListener("click", () => {
+            const target = document.getElementById(button.dataset.target);
+
+            if (target) {
+                target.scrollIntoView({
+                    behavior: "smooth",
+                    block: "start"
+                });
+            }
+
+            sectionButtons.forEach((item) => item.classList.remove("active"));
+            button.classList.add("active");
+        });
+    });
+
+    const transportCheckbox = document.getElementById("id_transport");
+    const transportArea = document.getElementById("id_transport_area");
+
+    function updateTransportField() {
+        if (!transportCheckbox || !transportArea) return;
+
+        transportArea.disabled = !transportCheckbox.checked;
+
+        if (!transportCheckbox.checked) {
+            transportArea.value = "";
+        }
+    }
+
+    if (transportCheckbox && transportArea) {
+        transportCheckbox.addEventListener("change", updateTransportField);
+        updateTransportField();
+    }
+</script>
+
+</body>
+</html>

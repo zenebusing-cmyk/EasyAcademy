@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Student Profile</title>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #f4f6f8;
+            padding: 30px;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: auto;
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+        }
+
+        h1 {
+            text-align: center;
+        }
+
+        .info {
+            font-size: 18px;
+            line-height: 2;
+        }
+
+        .buttons {
+            margin-top: 30px;
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        .button {
+            display: inline-block;
+            padding: 12px 20px;
+            background: #333;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+        }
+        .payment-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+
+.payment-table th,
+.payment-table td {
+    padding: 12px;
+    border-bottom: 1px solid #ddd;
+    text-align: left;
+}
+
+.payment-table th {
+    background: #333;
+    color: white;
+}
+
+.payment-table tr:hover {
+    background: #f5f5f5;
+}
+
+.fee-summary {
+    margin-top: 30px;
+    padding: 20px;
+    background: #f5f5f5;
+    border-radius: 8px;
+}
+
+.fee-summary h2 {
+    margin-top: 0;
+}
+
+.fee-row {
+    display: flex;
+    justify-content: space-between;
+    padding: 12px 0;
+    border-bottom: 1px solid #ddd;
+    font-size: 18px;
+}
+
+.status-paid {
+    color: green;
+}
+
+.status-partial {
+    color: orange;
+}
+
+.status-due {
+    color: red;
+}
+    </style>
+</head>
+
+<body>
+
+<div class="container">
+
+    <h1>Student Profile</h1>
+
+    <div class="info">
+
+        <p>
+            <strong>Name:</strong>
+            {{ student.name }}
+        </p>
+
+        <p>
+            <strong>Father Name:</strong>
+            {{ student.father_name }}
+        </p>
+
+        <p>
+            <strong>Mother Name:</strong>
+            {{ student.mother_name }}
+        </p>
+
+        <p>
+            <strong>Class:</strong>
+            {{ student.student_class }}
+        </p>
+
+        <p>
+            <strong>Roll Number:</strong>
+            {{ student.roll_number }}
+        </p>
+
+        <p>
+            <strong>Admission Number:</strong>
+            {{ student.admission_number }}
+        </p>
+
+    </div>
+<div class="fee-summary">
+
+    <h2>Fee Summary</h2>
+
+    <div class="fee-row">
+        <span>Total Fee</span>
+        <strong>₹{{ student.total_fee }}</strong>
+    </div>
+
+    <div class="fee-row">
+        <span>Paid Fee</span>
+        <strong>₹{{ total_paid }}</strong>
+    </div>
+
+    <div class="fee-row">
+        <span>Due Fee</span>
+        <strong>₹{{ due_fee }}</strong>
+    </div>
+    
+    <div class="fee-row">
+
+    <span>Status</span>
+
+    {% if fee_status == "PAID" %}
+
+        <strong class="status-paid">
+            PAID
+        </strong>
+
+    {% elif fee_status == "PARTIALLY PAID" %}
+
+        <strong class="status-partial">
+            PARTIALLY PAID
+        </strong>
+
+    {% else %}
+
+        <strong class="status-due">
+            DUE
+        </strong>
+
+    {% endif %}
+
+</div>
+
+</div>
+    <div class="buttons">
+
+        <a class="button" href="{% url 'add_fee' student.id %}">
+           + pay Fee
+        </a>
+
+    </div>
+    <h2>Payment History</h2>
+
+<table class="payment-table">
+
+    <thead>
+
+        <tr>
+            <th>Receipt No.</th>
+            <th>Date</th>
+            <th>Month</th>
+            <th>Amount</th>
+            <th>Payment Method</th>
+        </tr>
+
+    </thead>
+
+    <tbody>
+
+        {% for payment in payments %}
+
+        <tr>
+
+            <td>
+                <a href="{% url 'fee_success' payment.id %}">
+                    {{ payment.receipt_number }}
+                </a>
+            </td>
+
+            <td>
+                {{ payment.payment_date }}
+            </td>
+
+            <td>
+                {{ payment.month }}
+            </td>
+
+            <td>
+                ₹{{ payment.amount }}
+            </td>
+
+            <td>
+                {{ payment.payment_method }}
+            </td>
+
+        </tr>
+
+        {% empty %}
+
+        <tr>
+
+            <td colspan="5">
+                No payments found.
+            </td>
+
+        </tr>
+
+        {% endfor %}
+
+    </tbody>
+
+</table>
+
+</div>
+
+</body>
+
+</html>

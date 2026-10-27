@@ -1,0 +1,322 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Students | EasyAcademy</title>
+    <link rel="stylesheet" href="{% static 'students/style.css' %}">
+
+    <style>
+        .student-page {
+            padding: 28px;
+        }
+
+        .student-heading {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 25px;
+        }
+
+        .student-heading h1 {
+            margin: 0 0 8px;
+        }
+
+        .student-heading p {
+            color: #64748b;
+            margin: 0;
+        }
+
+        .student-actions {
+            display: flex;
+            gap: 10px;
+        }
+
+        .student-button {
+            display: inline-block;
+            padding: 11px 16px;
+            border-radius: 7px;
+            background: #16794f;
+            color: white;
+            text-decoration: none;
+            border: 0;
+            cursor: pointer;
+            font-size: 14px;
+        }
+
+        .student-search {
+            width: 100%;
+            max-width: 350px;
+            padding: 11px 13px;
+            border: 1px solid #dbe2ea;
+            border-radius: 7px;
+            margin-bottom: 18px;
+        }
+
+        .student-table-wrap {
+            overflow-x: auto;
+            background: white;
+            border: 1px solid #e2e8f0;
+            border-radius: 10px;
+        }
+
+        .student-table {
+            width: 100%;
+            border-collapse: collapse;
+            text-align: left;
+            min-width: 700px;
+        }
+
+        .student-table th,
+        .student-table td {
+            padding: 15px;
+            border-bottom: 1px solid #edf0f4;
+            font-size: 14px;
+        }
+
+        .student-table th {
+            background: #f8fafc;
+            color: #475569;
+        }
+
+        .student-table td {
+            color: #334155;
+        }
+
+        .student-table tr:last-child td {
+            border-bottom: none;
+        }
+
+        .student-table tbody tr:hover {
+            background: #f8fafc;
+        }
+
+        .student-name {
+            font-weight: bold;
+            color: #17384a;
+        }
+
+        .view-link {
+            color: #16794f;
+            font-weight: bold;
+            text-decoration: none;
+        }
+
+        .empty-message {
+            text-align: center;
+            padding: 35px;
+            color: #64748b;
+        }
+
+        .student-count {
+            margin-bottom: 16px;
+            color: #64748b;
+            font-size: 14px;
+        }
+
+        @media (max-width: 700px) {
+            .student-page {
+                padding: 18px;
+            }
+
+            .student-heading {
+                align-items: flex-start;
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="admin-layout">
+
+    <aside class="admin-sidebar">
+        <div class="admin-brand">
+            <span class="brand-icon">E</span>
+            <div>
+                <h2>EasyAcademy</h2>
+                <p>School Management</p>
+            </div>
+        </div>
+
+        <p class="sidebar-heading">MAIN MENU</p>
+
+        <nav class="admin-nav">
+            <a href="{% url 'admin_dashboard' %}" class="nav-item">
+                <span>▦</span> Overview
+            </a>
+
+            <a href="{% url 'admin_student_list' %}" class="nav-item active">
+                <span>♙</span> Students
+            </a>
+
+            <a href="#" class="nav-item">
+                <span>♧</span> Faculty / Teachers
+            </a>
+
+            <a href="{% url 'fee_reminders' %}" class="nav-item">
+                <span>₹</span> Fee &amp; Finance
+            </a>
+
+            <a href="#" class="nav-item">
+                <span>▣</span> Transport Management
+            </a>
+
+            <a href="#" class="nav-item">
+                <span>▦</span> Attendance
+            </a>
+
+            <a href="#" class="nav-item">
+                <span>▤</span> Results &amp; Report Cards
+            </a>
+
+            <a href="#" class="nav-item">
+                <span>▣</span> Zoom Meetings
+            </a>
+
+            <a href="#" class="nav-item">
+                <span>▧</span> Study Materials
+            </a>
+
+            <a href="#" class="nav-item">
+                <span>☑</span> Test Papers
+            </a>
+
+            <a href="#" class="nav-item">
+                <span>☷</span> Homework
+            </a>
+
+            <a href="#" class="nav-item">
+                <span>↗</span> Student Performance
+            </a>
+
+            <a href="#" class="nav-item">
+                <span>▥</span> Reports &amp; Analytics
+            </a>
+
+            <a href="#" class="nav-item">
+                <span>⚙</span> Settings
+            </a>
+        </nav>
+
+        <div class="sidebar-footer">
+            <p>EasyAcademy</p>
+            <span>School Administration</span>
+        </div>
+    </aside>
+
+    <main class="admin-main">
+
+        <header class="admin-topbar">
+            <div class="dashboard-search">
+                <span>⌕</span>
+                <input type="search" placeholder="Search students...">
+            </div>
+
+            <div class="topbar-actions">
+                <div class="admin-account">
+                    <div class="account-avatar">A</div>
+                    <div>
+                        <strong>Administrator</strong>
+                        <span>School Admin</span>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <section class="student-page">
+
+            <div class="student-heading">
+                <div>
+                    <h1>Student Management</h1>
+                    <p>View and manage your school's student records.</p>
+                </div>
+
+                <div class="student-actions">
+                    <a href="{% url 'add_student' %}" class="student-button">
+                        + Add Student
+                    </a>
+                </div>
+            </div>
+
+            <p class="student-count">
+                Total students: <strong>{{ total_students }}</strong>
+            </p>
+
+            <input
+                type="search"
+                id="studentFilter"
+                class="student-search"
+                placeholder="Search by name, admission number, or class..."
+                aria-label="Filter students"
+            >
+
+            <div class="student-table-wrap">
+                <table class="student-table">
+                    <thead>
+                        <tr>
+                            <th>Admission No.</th>
+                            <th>Student Name</th>
+                            <th>Class</th>
+                            <th>Section</th>
+                            <th>Roll No.</th>
+                            <th>Parent Mobile</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+
+                    <tbody id="studentTableBody">
+                        {% for student in students %}
+                        <tr>
+                            <td>{{ student.admission_number }}</td>
+                            <td class="student-name">{{ student.name }}</td>
+                            <td>{{ student.student_class }}</td>
+                            <td>{{ student.section }}</td>
+                            <td>{{ student.roll_number }}</td>
+                            <td>{{ student.mobile }}</td>
+                            <td>
+                                <a
+                                    class="view-link"
+                                    href="{% url 'student_detail' student.id %}"
+                                >
+                                    View
+                                </a>
+                            </td>
+                        </tr>
+                        {% empty %}
+                        <tr>
+                            <td colspan="7" class="empty-message">
+                                No students found. Click Add Student to register your first student.
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+
+        </section>
+    </main>
+
+</div>
+
+<script>
+    const studentFilter = document.getElementById("studentFilter");
+    const studentRows = document.querySelectorAll(
+        "#studentTableBody tr"
+    );
+
+    studentFilter.addEventListener("input", function () {
+        const query = this.value.toLowerCase().trim();
+
+        studentRows.forEach(function (row) {
+            const text = row.textContent.toLowerCase();
+            row.style.display = text.includes(query) ? "" : "none";
+        });
+    });
+</script>
+
+</body>
+</html>
